@@ -8,23 +8,23 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
-const light = new THREE.AmbientLight( 0x404040 );
-scene.add( light );
-
 const controls = new OrbitControls( camera, renderer.domElement );
 
 // Creating objects
-const torus_geometry = new THREE.TorusGeometry( 10, 3, 16, 100 ); 
-const torus_material = new THREE.MeshBasicMaterial( { color: 0xffff00 } ); 
+const torus_geometry = new THREE.TorusGeometry( 10, 3, 32, 128 ); 
+const torus_material = new THREE.MeshBasicMaterial( { color: 0xffffff } ); 
 const torus = new THREE.Mesh( torus_geometry, torus_material ); scene.add( torus );
 
 const geometry = new THREE.IcosahedronGeometry(1,0);
 const material = new THREE.MeshBasicMaterial( { color: 0xF8C8DC } );
 const Object = new THREE.Mesh( geometry, material ); scene.add( Object );
 
-// Camera setup
+// Objects setup
 
-camera.position.set( 10, 10, 20 );
+torus_material.wireframe=true;
+torus.rotateX(-1.57079633);
+
+camera.position.set( 0, 0, 16);
 camera.lookAt( 0, 0, 0 );
 
 //Continous Animations
@@ -72,3 +72,5 @@ function onWindowResize(){
     renderer.setSize( window.innerWidth, window.innerHeight );
 
 }
+
+// testing
