@@ -8,8 +8,10 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
-const light = new THREE.AmbientLight( 0x404040 ); // soft white light
+const light = new THREE.AmbientLight( 0x404040 );
 scene.add( light );
+
+const controls = new OrbitControls( camera, renderer.domElement );
 
 // Creating objects
 const torus_geometry = new THREE.TorusGeometry( 10, 3, 16, 100 ); 
@@ -22,22 +24,29 @@ const Object = new THREE.Mesh( geometry, material ); scene.add( Object );
 
 // Camera setup
 
-camera.position.set( 0, 0, 100 );
+camera.position.set( 10, 10, 20 );
 camera.lookAt( 0, 0, 0 );
-camera.position.z = 5;
-camera.position.y = 1;
+
+//Continous Animations
 
 function animate() {
-	//Object.rotation.x += 0.01;
-	//Object.rotation.y += 0.01;
-	//Object.rotation.z += 0.01;
+    controls.update();  
 	requestAnimationFrame( animate );
 	renderer.render( scene, camera );
 }
+// Moving Functions
+
+var zspeed = 0.1;
+var xSpeed = 0.1;
+var ySpeed = 0.1;
 document.addEventListener("keydown", onDocumentKeyDown, false);
 function onDocumentKeyDown(event) {
     var keyCode = event.which;
-    if (keyCode == 87) {
+    if (keyCode == 81) {
+        Object.position.z +=zspeed;
+    } else if (keyCode == 69) {
+        Object.position.z -= zspeed;
+    } else if (keyCode == 87) {
         Object.position.y += ySpeed;
     } else if (keyCode == 83) {
         Object.position.y -= ySpeed;
@@ -49,7 +58,17 @@ function onDocumentKeyDown(event) {
         Object.position.set(0, 0, 0);
     }
 };
-
-var xSpeed = 0.1;
-var ySpeed = 0.1;
 animate();
+
+// Resize window functions
+
+window.addEventListener( 'resize', onWindowResize, false );
+
+function onWindowResize(){
+
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize( window.innerWidth, window.innerHeight );
+
+}
