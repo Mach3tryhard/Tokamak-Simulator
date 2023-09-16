@@ -39,10 +39,8 @@ function onDocumentKeyDown(event) {
     } else if (keyCode == 32) {
         cube.position.set(0, 0, 0);
     }
-	requestAnimationFrame( animate );
-	renderer.render( scene, camera );
 };
 
-var xSpeed = 0.0001;
-var ySpeed = 0.0001;
+var xSpeed = 0.1;
+var ySpeed = 0.1;
 animate();
