@@ -10,22 +10,40 @@ document.body.appendChild( renderer.domElement );
 
 const controls = new OrbitControls( camera, renderer.domElement );
 
+const gridHelper = new THREE.GridHelper(200,50);
+scene.add(gridHelper);
+
 // Creating objects
-const torus_geometry = new THREE.TorusGeometry( 10, 3, 32, 128 ); 
-const torus_material = new THREE.MeshBasicMaterial( { color: 0xffffff } ); 
+
+const torus_geometry = new THREE.TorusGeometry( 10, 3, 16, 64 ); 
+const torus_material = new THREE.MeshBasicMaterial( { color: 0xffffff, wireframe:true } ); 
 const torus = new THREE.Mesh( torus_geometry, torus_material ); scene.add( torus );
 
 const geometry = new THREE.IcosahedronGeometry(1,0);
 const material = new THREE.MeshBasicMaterial( { color: 0xF8C8DC } );
 const Object = new THREE.Mesh( geometry, material ); scene.add( Object );
 
+function addAtom(){
+    const geometry = new THREE.SphereGeometry(0.1,24,24);
+    const material = new THREE.MeshBasicMaterial({color:0x800080})
+    const atom = new THREE.Mesh(geometry,material);
+
+    const angle = Math.random() * Math.PI * 2;
+    const radius = 8 + Math.random() * 5;
+    const x = Math.cos(angle) * radius;
+    const z = Math.sin(angle) * radius;
+    atom.position.set(x,0,z);   
+
+    scene.add(atom);
+}
 // Objects setup
 
-torus_material.wireframe=true;
 torus.rotateX(-1.57079633);
 
 camera.position.set( 0, 0, 16);
 camera.lookAt( 0, 0, 0 );
+
+Array(500).fill().forEach(addAtom);
 
 //Continous Animations
 
@@ -74,3 +92,4 @@ function onWindowResize(){
 }
 
 // testing
+
