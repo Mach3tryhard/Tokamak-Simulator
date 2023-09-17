@@ -1,2 +1,2 @@
 # My site
- IDK
+ Requires CANNON-es THREE.js CANNON-es-debugge installed
