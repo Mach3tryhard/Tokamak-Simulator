@@ -26,7 +26,7 @@ scene.add(gridHelper);
 
 /// CANNON
 const physicsWorld = new CANNON.World({
-    gravity: new CANNON.Vec3(0, -9.82, 0 ),
+    gravity: new CANNON.Vec3(0, -1, 0 ),
 });
 const groundBody = new CANNON.Body({
     type: CANNON.Body.STATIC,
@@ -80,7 +80,7 @@ function addAtom(){
     const z = Math.sin(angle) * radius;
     /// THREE
     const geometry = new THREE.SphereGeometry(0.1,24,24);
-    const material = new THREE.MeshBasicMaterial({color:0x800080})
+    const material = new THREE.MeshBasicMaterial({color:0xff0000})
     const atomt = new THREE.Mesh(geometry,material);
     atomt.position.set(x,0,z);   
     scene.add(atomt);
@@ -98,11 +98,11 @@ function addAtom(){
 
 // SETTING UP SOME STUFF
 
-camera.position.set( 0, 10 , 16);
+camera.position.set( 0, 10 , 20);
 camera.lookAt( 0, 0, 0 );
 
 
-Array(50).fill().forEach(addAtom);
+Array(10).fill().forEach(addAtom);
 
 //Continous Animations
 
@@ -122,6 +122,11 @@ const animate_physics = ()=>{
 
     for(var i=0;i<Atom_Arrayt.length;i++)
     {
+        const x=Atom_Arrayc[i].position.x;
+        const y=Atom_Arrayc[i].position.y;
+        const z=Atom_Arrayc[i].position.z;
+        const impulse = new CANNON.Vec3(-x/5, -y/5, -z/5);
+        Atom_Arrayc[i].applyImpulse(impulse);
         Atom_Arrayt[i].position.copy(Atom_Arrayc[i].position);
         Atom_Arrayt[i].quaternion.copy(Atom_Arrayc[i].quaternion);
     }
