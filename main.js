@@ -102,7 +102,7 @@ camera.position.set( 0, 10 , 16);
 camera.lookAt( 0, 0, 0 );
 
 
-Array(100).fill().forEach(addAtom);
+Array(50).fill().forEach(addAtom);
 
 //Continous Animations
 
