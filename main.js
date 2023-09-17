@@ -13,6 +13,9 @@ const controls = new OrbitControls( camera, renderer.domElement );
 const gridHelper = new THREE.GridHelper(200,50);
 scene.add(gridHelper);
 
+const backgroundtexture = new THREE.TextureLoader().load("");
+//scene.background = backgroundtexture;
+
 // Creating objects
 
 const torus_geometry = new THREE.TorusGeometry( 10, 3, 16, 64 ); 
