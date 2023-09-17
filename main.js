@@ -33,7 +33,7 @@ const groundBody = new CANNON.Body({
     shape: new CANNON.Plane(),
 });
 groundBody.quaternion.setFromEuler(-Math.PI/2,0,0);
-physicsWorld.addBody(groundBody);
+//physicsWorld.addBody(groundBody);
 
 // Creating objects
 
@@ -51,11 +51,23 @@ const sphereBody = new CANNON.Body({
 sphereBody.position.set(0,7,0);
 physicsWorld.addBody(sphereBody);
 
-/*
 const torus_geometry = new THREE.TorusGeometry( 10, 3, 16, 64 ); 
 const torus_material = new THREE.MeshBasicMaterial( { color: 0xffffff, wireframe:true } ); 
 const torus = new THREE.Mesh( torus_geometry, torus_material ); scene.add( torus );
+torus.rotateX(-1.57079633);
 
+const shape = CANNON.Trimesh.createTorus( 10, 3, 16, 64 );
+const torus_hitbox = new CANNON.Body({
+    type: CANNON.Body.STATIC,
+});
+torus_hitbox.addShape(shape);
+
+var axis = new CANNON.Vec3(1,0,0);
+var angle = Math.PI / 2;
+torus_hitbox.quaternion.setFromAxisAngle(axis, angle);
+
+physicsWorld.addBody(torus_hitbox);
+/*
 const geometry = new THREE.IcosahedronGeometry(1,0);
 const material = new THREE.MeshBasicMaterial( { color: 0xF8C8DC } );
 const Object = new THREE.Mesh( geometry, material ); scene.add( Object );
@@ -70,14 +82,14 @@ function addAtom(){
     const geometry = new THREE.SphereGeometry(0.1,24,24);
     const material = new THREE.MeshBasicMaterial({color:0x800080})
     const atomt = new THREE.Mesh(geometry,material);
-    atomt.position.set(x,7,z);   
+    atomt.position.set(x,0,z);   
     scene.add(atomt);
     /// CANNON
     const atomc = new CANNON.Body({
         mass: 1,
         shape: new CANNON.Sphere(0.1),
     });
-    atomc.position.set(x,7,z);
+    atomc.position.set(x,0,z);
     physicsWorld.addBody(atomc);
 
     Atom_Arrayt.push(atomt);
@@ -89,9 +101,8 @@ function addAtom(){
 camera.position.set( 0, 10 , 16);
 camera.lookAt( 0, 0, 0 );
 
-//torus.rotateX(-1.57079633);
 
-Array(500).fill().forEach(addAtom);
+Array(100).fill().forEach(addAtom);
 
 //Continous Animations
 
@@ -103,10 +114,10 @@ function animate() {
 }
 
 /// CANNON
-const cannonDebugger = new CannonDebugger(scene, physicsWorld,{} );
+//const cannonDebugger = new CannonDebugger(scene, physicsWorld,{} );
 const animate_physics = ()=>{
     physicsWorld.fixedStep();
-    cannonDebugger.update();
+    //cannonDebugger.update();
     window.requestAnimationFrame(animate_physics);
 
     for(var i=0;i<Atom_Arrayt.length;i++)
