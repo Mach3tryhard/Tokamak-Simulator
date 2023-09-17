@@ -1,5 +1,9 @@
 import * as THREE from 'three';	
+import * as CANNON from 'cannon-es';
+import CannonDebugger from 'cannon-es-debugger';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+/// Scene preparation
 
 const scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -16,8 +20,20 @@ scene.add(gridHelper);
 const backgroundtexture = new THREE.TextureLoader().load("");
 //scene.background = backgroundtexture;
 
+const physicsWorld = new CANNON.World({
+    gravity: new CANNON.Vec3(0, -9.82, 0 ),
+});
+
 // Creating objects
 
+let Atom_Arrayt=[];
+let Atom_Arrayc=[];
+
+const sphere_geometry = new THREE.SphereGeometry(1);
+const sphere_material = new THREE.MeshBasicMaterial({color:0x0000ff});
+const sphere = new THREE.Mesh(sphere_geometry,sphere_material); scene.add(sphere);
+
+/*
 const torus_geometry = new THREE.TorusGeometry( 10, 3, 16, 64 ); 
 const torus_material = new THREE.MeshBasicMaterial( { color: 0xffffff, wireframe:true } ); 
 const torus = new THREE.Mesh( torus_geometry, torus_material ); scene.add( torus );
@@ -25,23 +41,33 @@ const torus = new THREE.Mesh( torus_geometry, torus_material ); scene.add( torus
 const geometry = new THREE.IcosahedronGeometry(1,0);
 const material = new THREE.MeshBasicMaterial( { color: 0xF8C8DC } );
 const Object = new THREE.Mesh( geometry, material ); scene.add( Object );
-
+*/
 function addAtom(){
-    const geometry = new THREE.SphereGeometry(0.1,24,24);
-    const material = new THREE.MeshBasicMaterial({color:0x800080})
-    const atom = new THREE.Mesh(geometry,material);
-
+    // Math stuff for random generation
     const angle = Math.random() * Math.PI * 2;
     const radius = 8 + Math.random() * 5;
     const x = Math.cos(angle) * radius;
     const z = Math.sin(angle) * radius;
-    atom.position.set(x,0,z);   
 
-    scene.add(atom);
+    const geometry = new THREE.SphereGeometry(0.1,24,24);
+    const material = new THREE.MeshBasicMaterial({color:0x800080})
+    const atomt = new THREE.Mesh(geometry,material);
+    atomt.position.set(x,0,z);   
+    scene.add(atomt);
+
+    const atomc = new CANNON.Body({
+        mass: 1,
+        shape: new CANNON.Sphere(0.1),
+    });
+    atomc.position.set(x,0,z);
+    physicsWorld.addBody(atomc);
+
+    Atom_Arrayt.push(atomt);
+    Atom_Arrayc.push(atomc);
 }
 // Objects setup
 
-torus.rotateX(-1.57079633);
+//torus.rotateX(-1.57079633);
 
 camera.position.set( 0, 0, 16);
 camera.lookAt( 0, 0, 0 );
@@ -94,5 +120,39 @@ function onWindowResize(){
 
 }
 
-// testing
+//Physics Setup
 
+
+
+const groundBody = new CANNON.Body({
+    type: CANNON.Body.STATIC,
+    shape: new CANNON.Plane(),
+});
+
+groundBody.quaternion.setFromEuler(-Math.PI/2,0,0);
+physicsWorld.addBody(groundBody);
+
+const radius = 1;
+const sphereBody = new CANNON.Body({
+    mass: 5,
+    shape: new CANNON.Sphere(radius),
+});
+sphereBody.position.set(0,7,0);
+physicsWorld.addBody(sphereBody);
+
+const cannonDebugger = new CannonDebugger(scene, physicsWorld,{} );
+const animate_physics = ()=>{
+    physicsWorld.fixedStep();
+    cannonDebugger.update();
+    window.requestAnimationFrame(animate_physics);
+
+    for(var i=0;i<Atom_Arrayt.length;i++)
+    {
+        Atom_Arrayt[i].position.copy(Atom_Arrayc[i].position);
+        Atom_Arrayt[i].quaternion.copy(Atom_Arrayc[i].quaternion);
+    }
+    sphere.position.copy(sphereBody.position);
+    sphere.quaternion.copy(sphereBody.quaternion);
+};
+animate_physics();
+// testing
