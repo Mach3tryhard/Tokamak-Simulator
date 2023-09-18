@@ -40,6 +40,7 @@ groundBody.quaternion.setFromEuler(-Math.PI/2,0,0);
 let Atom_Arrayt=[];
 let Atom_Arrayc=[];
 
+
 const sphere_geometry = new THREE.SphereGeometry(1);
 const sphere_material = new THREE.MeshBasicMaterial({color:0x0000ff});
 const sphere = new THREE.Mesh(sphere_geometry,sphere_material); scene.add(sphere);
@@ -74,18 +75,19 @@ function addAtom(){
     const x = Math.cos(angle) * radius;
     const z = Math.sin(angle) * radius;
     /// THREE
-    const geometry = new THREE.SphereGeometry(0.1,24,24);
+    const geometry = new THREE.TetrahedronGeometry(0.1,1);
     const material = new THREE.MeshBasicMaterial({color:0xff0000})
     const atomt = new THREE.Mesh(geometry,material);
     atomt.position.set(x,0,z);   
     scene.add(atomt);
     /// CANNON
+
     const r = new CANNON.Vec3(x, 0, z);
     const rn = r.clone();
     rn.normalize();
     const atomc = new CANNON.Body({
         mass: 1,
-        shape: new CANNON.Sphere(0.1),
+        shape: new CANNON.Box(new CANNON.Vec3(0.1, 0.1, 0.1)),
         position: r,
         velocity: rn.cross(new CANNON.Vec3(0, 1, 0)).scale(Math.random() / 4 + 10)
     });
