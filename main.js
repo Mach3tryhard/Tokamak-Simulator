@@ -125,8 +125,10 @@ const animate_physics = ()=>{
         const x=Atom_Arrayc[i].position.x;
         const y=Atom_Arrayc[i].position.y;
         const z=Atom_Arrayc[i].position.z;
-        const impulse = new CANNON.Vec3(-x/5, -y/5, -z/5);
+        const impulse = new CANNON.Vec3(-x/z*0.1, 0, 0.1);
+        const impulse1 = new CANNON.Vec3(x/z*0.1, 0,0.1);
         Atom_Arrayc[i].applyImpulse(impulse);
+        Atom_Arrayc[i].applyImpulse(impulse1);
         Atom_Arrayt[i].position.copy(Atom_Arrayc[i].position);
         Atom_Arrayt[i].quaternion.copy(Atom_Arrayc[i].quaternion);
     }
