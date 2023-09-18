@@ -65,13 +65,8 @@ torus_hitbox.addShape(shape);
 var axis = new CANNON.Vec3(1,0,0);
 var angle = Math.PI / 2;
 torus_hitbox.quaternion.setFromAxisAngle(axis, angle);
-
 physicsWorld.addBody(torus_hitbox);
-/*
-const geometry = new THREE.IcosahedronGeometry(1,0);
-const material = new THREE.MeshBasicMaterial( { color: 0xF8C8DC } );
-const Object = new THREE.Mesh( geometry, material ); scene.add( Object );
-*/
+
 function addAtom(){
     // Math stuff for random generation
     const angle = Math.random() * Math.PI * 2;
@@ -79,17 +74,21 @@ function addAtom(){
     const x = Math.cos(angle) * radius;
     const z = Math.sin(angle) * radius;
     /// THREE
-    const geometry = new THREE.SphereGeometry(0.5,24,24);
+    const geometry = new THREE.SphereGeometry(0.1,24,24);
     const material = new THREE.MeshBasicMaterial({color:0xff0000})
     const atomt = new THREE.Mesh(geometry,material);
     atomt.position.set(x,0,z);   
     scene.add(atomt);
     /// CANNON
+    const r = new CANNON.Vec3(x, 0, z);
+    const rn = r.clone();
+    rn.normalize();
     const atomc = new CANNON.Body({
         mass: 1,
-        shape: new CANNON.Sphere(0.5),
+        shape: new CANNON.Sphere(0.1),
+        position: r,
+        velocity: rn.cross(new CANNON.Vec3(0, 1, 0)).scale(Math.random() / 4 + 10)
     });
-    atomc.position.set(x,0,z);
     physicsWorld.addBody(atomc);
 
     Atom_Arrayt.push(atomt);
@@ -102,7 +101,7 @@ camera.position.set( 0, 10 , 20);
 camera.lookAt( 0, 0, 0 );
 
 
-Array(1).fill().forEach(addAtom);
+Array(20).fill().forEach(addAtom);
 
 //Continous Animations
 
@@ -117,44 +116,22 @@ function animate() {
 //const cannonDebugger = new CannonDebugger(scene, physicsWorld,{} );
 const animate_physics = ()=>{
     physicsWorld.fixedStep();
+    physicsWorld.gravity = physicsWorld.gravity.scale(-1); 
     //cannonDebugger.update();
     window.requestAnimationFrame(animate_physics);
-    console.log(Atom_Arrayc[0].position.x);
-    console.log(Atom_Arrayc[0].position.z);
+
     for(var i=0;i<Atom_Arrayt.length;i++)
-    {
-        const x=Atom_Arrayc[i].position.x;
-        const y=Atom_Arrayc[i].position.y;
-        const z=Atom_Arrayc[i].position.z;
-        var velx=0;
-        var velz=0;
-        if(x>0 && z>0)
-        {
-            velx=-0.01*x;
-            velz=0.005*z;
-        }
-        if(x>0 && z<0)
-        {
-            velx=0.005*x;
-            velz=-0.01*z;
-        }
-        if(x<0 && z<0)
-        {
-            velx=-0.01*x;
-            velz=-0.005*z; 
-        }
-        if(x<0 && z>0)
-        {
-            velx=0.005*x;
-            velz=0.01*z;
-        }
-        const impulse = new CANNON.Vec3(velx , 0,velz);
+    {       
+        var r= Atom_Arrayc[i].position;
+        let dv = Atom_Arrayc[i].velocity;
+        /// THIS DOESNT UPDATE WITH YOUR FPS NEED TO MAKE IT DYNAMIC
+        dv = r.scale(dv.lengthSquared()/r.lengthSquared()/240*-1);
+        const impulse = dv;
         Atom_Arrayc[i].applyImpulse(impulse);
-        const impulse1 = new CANNON.Vec3(-x*0.001 , 0,-z*0.001);
-        Atom_Arrayc[i].applyImpulse(impulse1);
         Atom_Arrayt[i].position.copy(Atom_Arrayc[i].position);
         Atom_Arrayt[i].quaternion.copy(Atom_Arrayc[i].quaternion);
     }
+
     sphere.position.copy(sphereBody.position);
     sphere.quaternion.copy(sphereBody.quaternion);
 };
@@ -180,7 +157,7 @@ function onDocumentKeyDown(event) {
         Object.position.x -= xSpeed;
     } else if (keyCode == 68) {
         Object.position.x += xSpeed;
-    } else if (keyCode == 32) {
+    } else if (keyCode == 32) { 
         Object.position.set(0, 0, 0);
     }
 };
