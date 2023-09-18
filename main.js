@@ -26,7 +26,7 @@ scene.add(gridHelper);
 
 /// CANNON
 const physicsWorld = new CANNON.World({
-    gravity: new CANNON.Vec3(0, -1, 0 ),
+    gravity: new CANNON.Vec3(0, 0, 0 ),
 });
 const groundBody = new CANNON.Body({
     type: CANNON.Body.STATIC,
@@ -79,7 +79,7 @@ function addAtom(){
     const x = Math.cos(angle) * radius;
     const z = Math.sin(angle) * radius;
     /// THREE
-    const geometry = new THREE.SphereGeometry(0.1,24,24);
+    const geometry = new THREE.SphereGeometry(0.5,24,24);
     const material = new THREE.MeshBasicMaterial({color:0xff0000})
     const atomt = new THREE.Mesh(geometry,material);
     atomt.position.set(x,0,z);   
@@ -87,7 +87,7 @@ function addAtom(){
     /// CANNON
     const atomc = new CANNON.Body({
         mass: 1,
-        shape: new CANNON.Sphere(0.1),
+        shape: new CANNON.Sphere(0.5),
     });
     atomc.position.set(x,0,z);
     physicsWorld.addBody(atomc);
@@ -102,7 +102,7 @@ camera.position.set( 0, 10 , 20);
 camera.lookAt( 0, 0, 0 );
 
 
-Array(10).fill().forEach(addAtom);
+Array(1).fill().forEach(addAtom);
 
 //Continous Animations
 
@@ -119,15 +119,38 @@ const animate_physics = ()=>{
     physicsWorld.fixedStep();
     //cannonDebugger.update();
     window.requestAnimationFrame(animate_physics);
-
+    console.log(Atom_Arrayc[0].position.x);
+    console.log(Atom_Arrayc[0].position.z);
     for(var i=0;i<Atom_Arrayt.length;i++)
     {
         const x=Atom_Arrayc[i].position.x;
         const y=Atom_Arrayc[i].position.y;
         const z=Atom_Arrayc[i].position.z;
-        const impulse = new CANNON.Vec3(-x/z*0.1, 0, 0.1);
-        const impulse1 = new CANNON.Vec3(x/z*0.1, 0,0.1);
+        var velx=0;
+        var velz=0;
+        if(x>0 && z>0)
+        {
+            velx=-0.01*x;
+            velz=0.005*z;
+        }
+        if(x>0 && z<0)
+        {
+            velx=0.005*x;
+            velz=-0.01*z;
+        }
+        if(x<0 && z<0)
+        {
+            velx=-0.01*x;
+            velz=-0.005*z; 
+        }
+        if(x<0 && z>0)
+        {
+            velx=0.005*x;
+            velz=0.01*z;
+        }
+        const impulse = new CANNON.Vec3(velx , 0,velz);
         Atom_Arrayc[i].applyImpulse(impulse);
+        const impulse1 = new CANNON.Vec3(-x*0.001 , 0,-z*0.001);
         Atom_Arrayc[i].applyImpulse(impulse1);
         Atom_Arrayt[i].position.copy(Atom_Arrayc[i].position);
         Atom_Arrayt[i].quaternion.copy(Atom_Arrayc[i].quaternion);
