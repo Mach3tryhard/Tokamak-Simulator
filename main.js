@@ -79,7 +79,7 @@ function addAtom(){
     const material = new THREE.MeshBasicMaterial({color:0xff0000})
     const atomt = new THREE.Mesh(geometry,material);
     atomt.position.set(x,0,z);   
-    scene.add(atomt);
+    scene.add(atomt); 
     /// CANNON
 
     const r = new CANNON.Vec3(x, 0, z);
