@@ -87,9 +87,9 @@ function addAtom(){
     rn.normalize();
     const atomc = new CANNON.Body({
         friction:0,
-        restitution:0,  
+        restitution:0,
         mass: 1,
-        shape: new CANNON.Sphere(0.1),
+        shape:new CANNON.Cylinder(0.1, 0.1, 0.1, 12),
         position: r,
         velocity: rn.cross(new CANNON.Vec3(0, 1, 0)).scale(Math.random() / 4 + 10)
     });
@@ -105,7 +105,7 @@ camera.position.set( 0, 10 , 20);
 camera.lookAt( 0, 0, 0 );
 
 
-Array(100).fill().forEach(addAtom);
+Array(500).fill().forEach(addAtom);
 
 //Continous Animations
 
@@ -124,17 +124,17 @@ const animate_physics = ()=>{
     //cannonDebugger.update();
     window.requestAnimationFrame(animate_physics);
 
-    for(var i=0;i<Atom_Arrayt.length;i++)
+    /*for(var i=0;i<Atom_Arrayt.length;i++)
     {       
         var r= Atom_Arrayc[i].position;
         let dv = Atom_Arrayc[i].velocity;
         /// THIS DOESNT UPDATE WITH YOUR FPS NEED TO MAKE IT DYNAMIC
-        dv = r.scale(dv.lengthSquared()/r.lengthSquared()/144*-1);
+        dv = r.scale(dv.lengthSquared()/r.lengthSquared()/performance.now()/1000*-1);
         const impulse = dv;
         Atom_Arrayc[i].applyImpulse(impulse);
         Atom_Arrayt[i].position.copy(Atom_Arrayc[i].position);
         Atom_Arrayt[i].quaternion.copy(Atom_Arrayc[i].quaternion);
-    }
+    }*/
 
     sphere.position.copy(sphereBody.position);
     sphere.quaternion.copy(sphereBody.quaternion);
