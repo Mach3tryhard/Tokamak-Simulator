@@ -32,12 +32,6 @@ scene.add(gridHelper);
 const physicsWorld = new CANNON.World({
     gravity: new CANNON.Vec3(0, 0, 0 ),
 });
-const groundBody = new CANNON.Body({
-    type: CANNON.Body.STATIC,
-    shape: new CANNON.Plane(),
-});
-groundBody.quaternion.setFromEuler(-Math.PI/2,0,0);
-//physicsWorld.addBody(groundBody);
 
 // Creating objects
 
@@ -86,7 +80,6 @@ function addAtom(){
     // Math stuff for random generation
     const angle = Math.random() * Math.PI * 2;
     const angle1 = Math.random() * Math.PI * 2;
-    const radius = 8 + Math.random() * 5;
     const radius1 = 0 + Math.random() * 2.7;
     const x = Math.cos(angle) * (10 - radius1 * Math.cos(angle1));
     const z = Math.sin(angle) * (10 - radius1 * Math.cos(angle1));
@@ -143,8 +136,8 @@ function MakeLight(objectpozx,objectpozy,objectpozz)
     light.position.x = objectpozx;
     light.position.y = objectpozy;
     light.position.z = objectpozz;
-    //const spotLightHelper = new THREE.SpotLightHelper( light );
-   // scene.add( spotLightHelper );
+    const spotLightHelper = new THREE.SpotLightHelper( light );
+    scene.add( spotLightHelper );
     scene.add(light);
 }
 
@@ -208,7 +201,7 @@ const animate_physics = ()=>{
         }
     }*/
     box.position.copy(BoxBody.position);
-    //box.quaternion.copy(BoxBody.quaternion);
+    box.quaternion.copy(BoxBody.quaternion);
 };
 animate_physics();
 
