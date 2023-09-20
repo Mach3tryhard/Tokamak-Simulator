@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import * as CANNON from 'cannon-es';
 import CannonDebugger from 'cannon-es-debugger';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import {GUI} from 'dat.gui';
 
 /// Scene preparation
 
@@ -41,16 +42,15 @@ let Atom_Arrayt=[];
 let Atom_Arrayc=[];
 
 
-const sphere_geometry = new THREE.SphereGeometry(1);
-const sphere_material = new THREE.MeshBasicMaterial({color:0x0000ff});
-const sphere = new THREE.Mesh(sphere_geometry,sphere_material); scene.add(sphere);
-const radius = 1;
-const sphereBody = new CANNON.Body({
+const box_geometry = new THREE.BoxGeometry(1,1,1);
+const box_material = new THREE.MeshBasicMaterial({color:0x0000ff});
+const box = new THREE.Mesh(box_geometry,box_material); scene.add(box);
+const BoxBody = new CANNON.Body({
     mass: 5,
-    shape: new CANNON.Sphere(radius),
+    shape:new CANNON.Box(new CANNON.Vec3(0.5, 0.5, 0.5)),
 });
-sphereBody.position.set(0,7,0);
-physicsWorld.addBody(sphereBody);
+BoxBody.position.set(0,3,0);
+physicsWorld.addBody(BoxBody);
 
 const torus_geometry = new THREE.TorusGeometry( 10, 3, 16, 64 ); 
 const torus_material = new THREE.MeshBasicMaterial( { color: 0xffffff, wireframe:true } ); 
@@ -108,7 +108,7 @@ camera.position.set( 0, 10 , 20);
 camera.lookAt( 0, 0, 0 );
 
 
-Array(700).fill().forEach(addAtom);
+Array(500).fill().forEach(addAtom);
 
 //Continous Animations
 
@@ -140,14 +140,14 @@ const animate_physics = ()=>{
     }*/
 
     for(var i=0;i<Atom_Arrayt.length;i++)
-    {       
+    {
         //Atom_Arrayc[i].applyImpulse(impulse);
         Atom_Arrayt[i].position.copy(Atom_Arrayc[i].position);
         Atom_Arrayt[i].quaternion.copy(Atom_Arrayc[i].quaternion);
     }
         
-    sphere.position.copy(sphereBody.position);
-    sphere.quaternion.copy(sphereBody.quaternion);
+    box.position.copy(BoxBody.position);
+    //box.quaternion.copy(BoxBody.quaternion);
 };
 animate_physics();
 
@@ -189,5 +189,23 @@ function onWindowResize(){
     renderer.setSize( window.innerWidth, window.innerHeight );
 
 }
+
+/// LIL GUI
+const gui = new GUI();
+
+gui.add(box.rotation, 'x' , 0, Math.PI).name("Rotate X");
+gui.add(box.rotation, 'y' , 0, Math.PI).name("Rotate Y");
+gui.add(box.rotation, 'z' , 0, Math.PI).name("Rotate Z");
+gui.add(box.scale, 'x' , 0, 2).name("Rotate X");
+gui.add(box.scale, 'y' , 0, 2).name("Rotate Y");
+gui.add(box.scale, 'z' , 0, 2).name("Rotate Z");
+
+
+const materialParams = {
+    torusMeshColor : torus.material.color.getHex(),
+};
+gui.add(torus.material, 'wireframe');
+gui.addColor(materialParams, 'torusMeshColor')
+   .onChange((value) => torus.material.color.set(value));
 
 // testing
