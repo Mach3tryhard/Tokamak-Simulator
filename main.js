@@ -121,6 +121,10 @@ function addAtom(){
 
 // SETTING UP SOME STUFF
 
+var controls_gui = new function() {
+    this.vibration_scale = 0.1;
+}
+
 camera.position.set( 0, 10 , 20);
 camera.lookAt( 0, 0, 0 );
 
@@ -168,12 +172,13 @@ const animate_physics = ()=>{
         Atom_Arrayt[i].quaternion.copy(Atom_Arrayc[i].quaternion);
     }*/
 
+
     for(var i=0;i<Atom_Arrayt.length;i++)
     {
         let a=new CANNON.Vec3(0, 0, 0);
         for (let j = 0; j < Atom_center[i].length; j++)
             a = a.vadd(Atom_center[i][j].vsub(Atom_Arrayc[i].position));
-        a = a.scale(1);
+        a = a.scale(controls_gui.vibration_scale);
         Atom_Arrayc[i].applyForce(a);
         Atom_Arrayt[i].position.copy(Atom_Arrayc[i].position);
         Atom_Arrayt[i].quaternion.copy(Atom_Arrayc[i].quaternion);
@@ -249,6 +254,7 @@ gui.add(box.rotation, 'z' , 0, Math.PI).name("Rotate Z");
 gui.add(box.scale, 'x' , 0, 100).name("Rotate X");
 gui.add(box.scale, 'y' , 0, 100).name("Rotate Y");
 gui.add(box.scale, 'z' , 0, 100).name("Rotate Z");
+gui.add(controls_gui, 'vibration_scale', 0.1 ,100).name("Temperature");
 
 const materialParams = {
     torusMeshColor : torus.material.color.getHex(),
