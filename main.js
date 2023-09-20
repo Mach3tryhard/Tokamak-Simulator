@@ -19,6 +19,9 @@ document.body.appendChild( renderer.domElement );
 
 const controls = new OrbitControls( camera, renderer.domElement );
 
+const light = new THREE.AmbientLight( 0xffffff ); // soft white light
+scene.add( light );
+
 //const backgroundtexture = new THREE.TextureLoader().load("");
 //scene.background = backgroundtexture;
 
@@ -43,7 +46,7 @@ let Atom_Arrayc=[];
 let Atom_center=[];
 
 const box_geometry = new THREE.BoxGeometry(1,1,1);
-const box_material = new THREE.MeshBasicMaterial({color:0x0000ff});
+const box_material = new THREE.MeshNormalMaterial({color:0x0000ff});
 const box = new THREE.Mesh(box_geometry,box_material); scene.add(box);
 const BoxBody = new CANNON.Body({
     mass: 5,
@@ -53,7 +56,7 @@ BoxBody.position.set(0,3,0);
 physicsWorld.addBody(BoxBody);
 
 const torus_geometry = new THREE.TorusGeometry( 10, 3, 16, 64 ); 
-const torus_material = new THREE.MeshBasicMaterial( { color: 0xffffff, wireframe:true } ); 
+const torus_material = new THREE.MeshStandardMaterial( { color: 0xffffff, wireframe:true } ); 
 const torus = new THREE.Mesh( torus_geometry, torus_material ); scene.add( torus );
 torus.rotateX(-1.57079633);
 
@@ -75,6 +78,9 @@ function rand_vec(low, high) {
         Math.random() * (high - low) + low
     );
 }
+/// ATOM GENERATION SETUP
+const atom_geom = new THREE.TetrahedronGeometry(0.1, 1);
+const atom_mat = new THREE.MeshBasicMaterial({color: 0xff0000});
 
 function addAtom(){
     // Math stuff for random generation
@@ -86,9 +92,7 @@ function addAtom(){
     const z = Math.sin(angle) * (10 - radius1 * Math.cos(angle1));
     const y = Math.sin(angle1) * radius1;
     /// THREE
-    const geometry = new THREE.TetrahedronGeometry(0.1,1);
-    const material = new THREE.MeshBasicMaterial({color:0xff0000})
-    const atomt = new THREE.Mesh(geometry,material);
+    const atomt = new THREE.Mesh(atom_geom, atom_mat);
     atomt.position.set(x,y,z);   
     scene.add(atomt); 
     /// CANNON
@@ -121,7 +125,18 @@ camera.position.set( 0, 10 , 20);
 camera.lookAt( 0, 0, 0 );
 
 
-Array(500).fill().forEach(addAtom);
+Array(700).fill().forEach(addAtom);
+
+function MakeLight(objectpozx,objectpozy,objectpozz)
+{
+    const light = new THREE.PointLight( 0xff0000, 1, 100 );
+    light.position.x = objectpozx;
+    light.position.y = objectpozy;
+    light.position.z = objectpozz;
+    //const spotLightHelper = new THREE.SpotLightHelper( light );
+   // scene.add( spotLightHelper );
+    scene.add(light);
+}
 
 //Continous Animations
 
@@ -158,12 +173,29 @@ const animate_physics = ()=>{
         let a=new CANNON.Vec3(0, 0, 0);
         for (let j = 0; j < Atom_center[i].length; j++)
             a = a.vadd(Atom_center[i][j].vsub(Atom_Arrayc[i].position));
-        a = a.scale(0.3);
-        Atom_Arrayc[i].applyImpulse(a);
+        a = a.scale(1);
+        Atom_Arrayc[i].applyForce(a);
         Atom_Arrayt[i].position.copy(Atom_Arrayc[i].position);
         Atom_Arrayt[i].quaternion.copy(Atom_Arrayc[i].quaternion);
     }
-        
+    
+    /*for(var i=0;i<Atom_Arrayc.length;i++)
+    {
+        for(var j=0;j<Atom_Arrayc.length;j++)
+        {
+            if( i!=j)
+            {
+                const t1 = (Atom_Arrayc[i].position.x-Atom_Arrayc[j].position.x)*(Atom_Arrayc[i].position.x-Atom_Arrayc[j].position.x);
+                const t2 = (Atom_Arrayc[i].position.y-Atom_Arrayc[j].position.y)*(Atom_Arrayc[i].position.y-Atom_Arrayc[j].position.y);
+                const t3 = (Atom_Arrayc[i].position.z-Atom_Arrayc[j].position.z)*(Atom_Arrayc[i].position.z-Atom_Arrayc[j].position.z);
+                const dist = Math.sqrt(t1 + t2 + t3);
+                if(dist <=0.1)
+                {
+                    MakeLight(Atom_Arrayc[i].position.x,Atom_Arrayc[i].position.y,Atom_Arrayc[i].position.z);
+                }
+            }
+        }
+    }*/
     box.position.copy(BoxBody.position);
     //box.quaternion.copy(BoxBody.quaternion);
 };
