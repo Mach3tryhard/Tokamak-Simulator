@@ -71,18 +71,21 @@ physicsWorld.addBody(torus_hitbox);
 function addAtom(){
     // Math stuff for random generation
     const angle = Math.random() * Math.PI * 2;
+    const angle1 = Math.random() * Math.PI * 2;
     const radius = 8 + Math.random() * 5;
-    const x = Math.cos(angle) * radius;
-    const z = Math.sin(angle) * radius;
+    const radius1 = 0 + Math.random() * 2.8;
+    const x = Math.cos(angle) * (10 - radius1 * Math.cos(angle1));
+    const z = Math.sin(angle) * (10 - radius1 * Math.cos(angle1));
+    const y = Math.sin(angle1) * radius1;
     /// THREE
     const geometry = new THREE.TetrahedronGeometry(0.1,1);
     const material = new THREE.MeshBasicMaterial({color:0xff0000})
     const atomt = new THREE.Mesh(geometry,material);
-    atomt.position.set(x,0,z);   
+    atomt.position.set(x,y,z);   
     scene.add(atomt); 
     /// CANNON
 
-    const r = new CANNON.Vec3(x, 0, z);
+    const r = new CANNON.Vec3(x, y, z);
     const rn = r.clone();
     rn.normalize();
     const atomc = new CANNON.Body({
@@ -91,7 +94,7 @@ function addAtom(){
         mass: 1,
         shape:new CANNON.Cylinder(0.1, 0.1, 0.1, 12),
         position: r,
-        velocity: rn.cross(new CANNON.Vec3(0, 1, 0)).scale(Math.random() / 4 + 10)
+        //velocity: rn.cross(new CANNON.Vec3(0, 1, 0)).scale(Math.random() / 4 + 10)
     });
     physicsWorld.addBody(atomc);
 
@@ -105,7 +108,7 @@ camera.position.set( 0, 10 , 20);
 camera.lookAt( 0, 0, 0 );
 
 
-Array(500).fill().forEach(addAtom);
+Array(700).fill().forEach(addAtom);
 
 //Continous Animations
 
@@ -136,6 +139,13 @@ const animate_physics = ()=>{
         Atom_Arrayt[i].quaternion.copy(Atom_Arrayc[i].quaternion);
     }*/
 
+    for(var i=0;i<Atom_Arrayt.length;i++)
+    {       
+        //Atom_Arrayc[i].applyImpulse(impulse);
+        Atom_Arrayt[i].position.copy(Atom_Arrayc[i].position);
+        Atom_Arrayt[i].quaternion.copy(Atom_Arrayc[i].quaternion);
+    }
+        
     sphere.position.copy(sphereBody.position);
     sphere.quaternion.copy(sphereBody.quaternion);
 };
