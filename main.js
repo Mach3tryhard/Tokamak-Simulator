@@ -125,6 +125,12 @@ var controls_gui = new function() {
     this.vibration_scale = 0.1;
 }
 
+var controls1_gui = {
+    AddAtoms: function(){
+        Array(1).fill().forEach(addAtom);
+    }
+}
+
 camera.position.set( 0, 10 , 20);
 camera.lookAt( 0, 0, 0 );
 
@@ -248,12 +254,31 @@ function onWindowResize(){
 /// LIL GUI
 const gui = new GUI();
 
-gui.add(box.rotation, 'x' , 0, Math.PI).name("Rotate X");
-gui.add(box.rotation, 'y' , 0, Math.PI).name("Rotate Y");
-gui.add(box.rotation, 'z' , 0, Math.PI).name("Rotate Z");
-gui.add(box.scale, 'x' , 0, 100).name("Rotate X");
-gui.add(box.scale, 'y' , 0, 100).name("Rotate Y");
-gui.add(box.scale, 'z' , 0, 100).name("Rotate Z");
+var controls1_gui = {
+    AddAtoms_1: function(){
+        Array(1).fill().forEach(addAtom);
+    }
+}
+var controls2_gui = {
+    AddAtoms_10: function(){
+        Array(10).fill().forEach(addAtom);
+    }
+}
+var controls3_gui = {
+    AddAtoms_50: function(){
+        Array(50).fill().forEach(addAtom);
+    }
+}
+var controls4_gui = {
+    AddAtoms_100: function(){
+        Array(1).fill().forEach(addAtom);
+    }
+}
+
+gui.add(controls1_gui, 'AddAtoms_1').name("Add Atoms(1)");
+gui.add(controls2_gui, 'AddAtoms_10').name("Add Atoms(10)");
+gui.add(controls3_gui, 'AddAtoms_50').name("Add Atoms(50)");
+gui.add(controls4_gui, 'AddAtoms_100').name("Add Atoms(100)");
 gui.add(controls_gui, 'vibration_scale', 0.1 ,100).name("Temperature");
 
 const materialParams = {
