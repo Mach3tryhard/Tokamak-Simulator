@@ -40,7 +40,7 @@ groundBody.quaternion.setFromEuler(-Math.PI/2,0,0);
 
 let Atom_Arrayt=[];
 let Atom_Arrayc=[];
-
+let Atom_center=[];
 
 const box_geometry = new THREE.BoxGeometry(1,1,1);
 const box_material = new THREE.MeshBasicMaterial({color:0x0000ff});
@@ -68,12 +68,20 @@ var angle = Math.PI / 2;
 torus_hitbox.quaternion.setFromAxisAngle(axis, angle);
 physicsWorld.addBody(torus_hitbox);
 
+function rand_vec(low, high) {
+    return new CANNON.Vec3(
+        Math.random() * (high - low) + low,
+        Math.random() * (high - low) + low,
+        Math.random() * (high - low) + low
+    );
+}
+
 function addAtom(){
     // Math stuff for random generation
     const angle = Math.random() * Math.PI * 2;
     const angle1 = Math.random() * Math.PI * 2;
     const radius = 8 + Math.random() * 5;
-    const radius1 = 0 + Math.random() * 2.8;
+    const radius1 = 0 + Math.random() * 2.7;
     const x = Math.cos(angle) * (10 - radius1 * Math.cos(angle1));
     const z = Math.sin(angle) * (10 - radius1 * Math.cos(angle1));
     const y = Math.sin(angle1) * radius1;
@@ -94,9 +102,14 @@ function addAtom(){
         mass: 1,
         shape:new CANNON.Cylinder(0.1, 0.1, 0.1, 12),
         position: r,
-        //velocity: rn.cross(new CANNON.Vec3(0, 1, 0)).scale(Math.random() / 4 + 10)
+        velocity: new CANNON.Vec3(Math.random()*0.2 - 0.1,Math.random()*0.2 - 0.1, Math.random()*0.2 - 0.1)
     });
     physicsWorld.addBody(atomc);
+
+    Atom_center.push([
+        atomc.position.clone().vadd(rand_vec(-0.1, 0.1)),
+        atomc.position.clone().vadd(rand_vec(-0.1, 0.1))
+    ]);
 
     Atom_Arrayt.push(atomt);
     Atom_Arrayc.push(atomc);
@@ -127,6 +140,7 @@ const animate_physics = ()=>{
     //cannonDebugger.update();
     window.requestAnimationFrame(animate_physics);
 
+    ///MAKE ROTATE THEN REALISE TOKAMAK NO ROTATE AND THEN I WANT KMS
     /*for(var i=0;i<Atom_Arrayt.length;i++)
     {       
         var r= Atom_Arrayc[i].position;
@@ -141,7 +155,11 @@ const animate_physics = ()=>{
 
     for(var i=0;i<Atom_Arrayt.length;i++)
     {
-        //Atom_Arrayc[i].applyImpulse(impulse);
+        let a=new CANNON.Vec3(0, 0, 0);
+        for (let j = 0; j < Atom_center[i].length; j++)
+            a = a.vadd(Atom_center[i][j].vsub(Atom_Arrayc[i].position));
+        a = a.scale(0.3);
+        Atom_Arrayc[i].applyImpulse(a);
         Atom_Arrayt[i].position.copy(Atom_Arrayc[i].position);
         Atom_Arrayt[i].quaternion.copy(Atom_Arrayc[i].quaternion);
     }
@@ -196,10 +214,9 @@ const gui = new GUI();
 gui.add(box.rotation, 'x' , 0, Math.PI).name("Rotate X");
 gui.add(box.rotation, 'y' , 0, Math.PI).name("Rotate Y");
 gui.add(box.rotation, 'z' , 0, Math.PI).name("Rotate Z");
-gui.add(box.scale, 'x' , 0, 2).name("Rotate X");
-gui.add(box.scale, 'y' , 0, 2).name("Rotate Y");
-gui.add(box.scale, 'z' , 0, 2).name("Rotate Z");
-
+gui.add(box.scale, 'x' , 0, 100).name("Rotate X");
+gui.add(box.scale, 'y' , 0, 100).name("Rotate Y");
+gui.add(box.scale, 'z' , 0, 100).name("Rotate Z");
 
 const materialParams = {
     torusMeshColor : torus.material.color.getHex(),
