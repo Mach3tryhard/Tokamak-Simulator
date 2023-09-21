@@ -34,7 +34,7 @@ const physicsWorld = new CANNON.World({
 });
 
 // Creating objects
-
+let Atoms = [];
 let Atom_Arrayt=[];
 let Atom_Arrayc=[];
 let Atom_center=[];
@@ -77,6 +77,7 @@ var i=0;
 const atom_geom = new THREE.TetrahedronGeometry(0.1, 1);
 const atom_deut_mat = new THREE.MeshBasicMaterial({color: 0xff0000});
 const atom_trit_mat = new THREE.MeshBasicMaterial({color: 0xffa500});
+const atom_heli_mat = new THREE.MeshBasicMaterial({color: 0x87ceeb});
 
 function addAtom(){
     // Math stuff for random generation
@@ -100,7 +101,7 @@ function addAtom(){
     atomt.position.set(x,y,z);   
     scene.add(atomt); 
     /// CANNON
-
+    let atom = {};
     const r = new CANNON.Vec3(x, y, z);
     const rn = r.clone();
     rn.normalize();
@@ -114,25 +115,33 @@ function addAtom(){
     });
     physicsWorld.addBody(atomc);
 
-    Atom_center.push([
+    atom.t = atomt;
+    atom.c = atomc;
+    atom.center = [
         atomc.position.clone().vadd(rand_vec(-0.1, 0.1)),
         atomc.position.clone().vadd(rand_vec(-0.1, 0.1))
-    ]);
-
-    Atom_Arrayt.push(atomt);
-    Atom_Arrayc.push(atomc);
+    ];
+    atomc.ref = atom;
+    atom.remain = true;
+    atom.collision = (event) => {
+        let other = event.body;
+        if(other.position.x>atomc.position.x)return;
+        if(other.position.y>atomc.position.y)return;
+        if(other.position.z>=atomc.position.z)return;
+        other.ref.remain = false;
+        scene.remove(atomc.ref.t);
+        atomc.ref.t = new THREE.Mesh(atom_geom, atom_heli_mat);
+        scene.remove( other.ref.t );
+        atomc.removeEventListener('collide', atomc.ref.collision);
+    };
+    Atoms.push(atom);
+    atomc.addEventListener('collide', atom.collision)
 }
 
 // SETTING UP SOME STUFF
 
 var controls_gui = new function() {
     this.vibration_scale = 0.1;
-}
-
-var controls1_gui = {
-    AddAtoms: function(){
-        Array(1).fill().forEach(addAtom);
-    }
 }
 
 camera.position.set( 0, 10 , 20);
@@ -183,15 +192,20 @@ const animate_physics = ()=>{
     }*/
 
 
-    for(var i=0;i<Atom_Arrayt.length;i++)
+    for(var i=0;i<Atoms.length;i++)
     {
+        if (Atoms[i].remain == false) {
+            physicsWorld.removeBody(Atoms[i].c);
+            Atoms[i] = {remain: false};
+            continue;
+        }
         let a=new CANNON.Vec3(0, 0, 0);
-        for (let j = 0; j < Atom_center[i].length; j++)
-            a = a.vadd(Atom_center[i][j].vsub(Atom_Arrayc[i].position));
+        for (let j = 0; j < Atoms[i].center.length; j++)
+            a = a.vadd(Atoms[i].center[j].vsub(Atoms[i].c.position));
         a = a.scale(controls_gui.vibration_scale);
-        Atom_Arrayc[i].applyForce(a);
-        Atom_Arrayt[i].position.copy(Atom_Arrayc[i].position);
-        Atom_Arrayt[i].quaternion.copy(Atom_Arrayc[i].quaternion);
+        Atoms[i].c.applyForce(a);
+        Atoms[i].t.position.copy(Atoms[i].c.position);
+        Atoms[i].t.quaternion.copy(Atoms[i].c.quaternion);
     }
     
     /*for(var i=0;i<Atom_Arrayc.length;i++)
