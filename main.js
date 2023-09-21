@@ -75,7 +75,8 @@ function rand_vec(low, high) {
 /// ATOM GENERATION SETUP
 var i=0;
 const atom_geom = new THREE.TetrahedronGeometry(0.1, 1);
-const atom_mat = new THREE.MeshBasicMaterial({color: 0xff0000});
+const atom_deut_mat = new THREE.MeshBasicMaterial({color: 0xff0000});
+const atom_trit_mat = new THREE.MeshBasicMaterial({color: 0xffa500});
 
 function addAtom(){
     // Math stuff for random generation
@@ -88,13 +89,13 @@ function addAtom(){
     /// THREE
     const color = new THREE.Color(0xff00000);
     const color1 = new THREE.Color(0xffa500);
-    if(i%2==1){
-        atom_mat.set(color);
+    let atomt;
+    if(i%2==0){
+        atomt = new THREE.Mesh(atom_geom, atom_trit_mat);
     }
     else{
-        atom_mat.set(color1);
+        atomt = new THREE.Mesh(atom_geom, atom_deut_mat);
     }
-    const atomt = new THREE.Mesh(atom_geom, atom_mat);
     i=i+1;
     atomt.position.set(x,y,z);   
     scene.add(atomt); 
