@@ -73,6 +73,7 @@ function rand_vec(low, high) {
     );
 }
 /// ATOM GENERATION SETUP
+var i=0;
 const atom_geom = new THREE.TetrahedronGeometry(0.1, 1);
 const atom_mat = new THREE.MeshBasicMaterial({color: 0xff0000});
 
@@ -85,7 +86,16 @@ function addAtom(){
     const z = Math.sin(angle) * (10 - radius1 * Math.cos(angle1));
     const y = Math.sin(angle1) * radius1;
     /// THREE
+    const color = new THREE.Color(0xff00000);
+    const color1 = new THREE.Color(0xffa500);
+    if(i%2==1){
+        atom_mat.set(color);
+    }
+    else{
+        atom_mat.set(color1);
+    }
     const atomt = new THREE.Mesh(atom_geom, atom_mat);
+    i=i+1;
     atomt.position.set(x,y,z);   
     scene.add(atomt); 
     /// CANNON
@@ -241,37 +251,55 @@ function onWindowResize(){
     camera.updateProjectionMatrix();
 
     renderer.setSize( window.innerWidth, window.innerHeight );
-
 }
 
 /// LIL GUI
 const gui = new GUI();
 
 var controls1_gui = {
-    AddAtoms_1: function(){
-        Array(1).fill().forEach(addAtom);
+    AddAtoms_2: function(){
+        Array(2).fill().forEach(addAtom);
     }
 }
 var controls2_gui = {
-    AddAtoms_10: function(){
-        Array(10).fill().forEach(addAtom);
+    AddAtoms_4: function(){
+        Array(4).fill().forEach(addAtom);
     }
 }
 var controls3_gui = {
-    AddAtoms_50: function(){
-        Array(50).fill().forEach(addAtom);
+    AddAtoms_8: function(){
+        Array(8).fill().forEach(addAtom);
     }
 }
 var controls4_gui = {
-    AddAtoms_100: function(){
-        Array(1).fill().forEach(addAtom);
+    AddAtoms_16: function(){
+        Array(16).fill().forEach(addAtom);
+    }
+}
+var controls5_gui = {
+    AddAtoms_32: function(){
+        Array(32).fill().forEach(addAtom);
+    }
+}
+var controls6_gui = {
+    AddAtoms_64: function(){
+        Array(64).fill().forEach(addAtom);
+    }
+}
+var controls7_gui = {
+    AddAtoms_86: function(){
+        Array(86).fill().forEach(addAtom);
     }
 }
 
-gui.add(controls1_gui, 'AddAtoms_1').name("Add Atoms(1)");
-gui.add(controls2_gui, 'AddAtoms_10').name("Add Atoms(10)");
-gui.add(controls3_gui, 'AddAtoms_50').name("Add Atoms(50)");
-gui.add(controls4_gui, 'AddAtoms_100').name("Add Atoms(100)");
+gui.add(controls1_gui, 'AddAtoms_2').name("Add 2 Atoms(1-Deuterium 1-Tritium)");
+gui.add(controls2_gui, 'AddAtoms_4').name("Add 4 Atoms(2-Deuterium 2-Tritium)");
+gui.add(controls3_gui, 'AddAtoms_8').name("Add 8 Atoms(4-Deuterium 4-Tritium)");
+gui.add(controls4_gui, 'AddAtoms_16').name("Add 16 Atoms(8-Deuterium 8-Tritium)");
+gui.add(controls5_gui, 'AddAtoms_32').name("Add 32 Atoms(16-Deuterium 16-Tritium)");
+gui.add(controls6_gui, 'AddAtoms_64').name("Add 64 Atoms(32-Deuterium 32-Tritium)");
+gui.add(controls7_gui, 'AddAtoms_86').name("Add 86 Atoms(43-Deuterium 43-Tritium)");
+
 gui.add(controls_gui, 'vibration_scale', 0.1 ,100).name("Temperature");
 
 const materialParams = {
