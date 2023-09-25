@@ -125,17 +125,17 @@ function addAtom(){
     atom.remain = true;
     atom.collision = (event) => {
         let other = event.body;
-        if(other.position.x>atomc.position.x)return;
-        if(other.position.y>atomc.position.y)return;
-        if(other.position.z>=atomc.position.z)return;
+        if(other.position.x>this.position.x)return;
+        if(other.position.y>this.position.y)return;
+        if(other.position.z>=this.position.z)return;
         other.ref.remain = false;
-        scene.remove(atomc.ref.t);
-        atomc.ref.t = new THREE.Mesh(atom_geom, atom_heli_mat);
+        scene.remove(this.ref.t);
+        this.ref.t = new THREE.Mesh(atom_geom, atom_heli_mat);
         scene.remove( other.ref.t );
-        atomc.removeEventListener('collide', atomc.ref.collision);
+        this.removeEventListener('collide', this.ref.collision);
     };
     Atoms.push(atom);
-    atomc.addEventListener('collide', atom.collision)
+    //atomc.addEventListener('collide', atom.collision)
 }
 
 // SETTING UP SOME STUFF
@@ -171,11 +171,11 @@ function animate() {
 }
 
 /// CANNON
-//const cannonDebugger = new CannonDebugger(scene, physicsWorld,{} );
+const cannonDebugger = new CannonDebugger(scene, physicsWorld,{} );
 const animate_physics = ()=>{
     physicsWorld.fixedStep();
     physicsWorld.gravity = physicsWorld.gravity.scale(-1); 
-    //cannonDebugger.update();
+    cannonDebugger.update();
     window.requestAnimationFrame(animate_physics);
 
     ///MAKE ROTATE THEN REALISE TOKAMAK NO ROTATE AND THEN I WANT KMS
@@ -208,6 +208,15 @@ const animate_physics = ()=>{
         Atoms[i].t.quaternion.copy(Atoms[i].c.quaternion);
     }
     
+    for(var i=0; i<physicsWorld.contacts.length; i++)
+    {
+        for(var j=0; j<physicsWorld.contacts.length; j++)
+        {   
+
+            physicsWorld.contacts[j].remain=false;
+        }   
+    }
+
     /*for(var i=0;i<Atom_Arrayc.length;i++)
     {
         for(var j=0;j<Atom_Arrayc.length;j++)
