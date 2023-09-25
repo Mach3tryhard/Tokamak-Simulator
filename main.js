@@ -123,17 +123,6 @@ function addAtom(){
     ];
     atomc.ref = atom;
     atom.remain = true;
-    atom.collision = (event) => {
-        let other = event.body;
-        if(other.position.x>this.position.x)return;
-        if(other.position.y>this.position.y)return;
-        if(other.position.z>=this.position.z)return;
-        other.ref.remain = false;
-        scene.remove(this.ref.t);
-        this.ref.t = new THREE.Mesh(atom_geom, atom_heli_mat);
-        scene.remove( other.ref.t );
-        this.removeEventListener('collide', this.ref.collision);
-    };
     Atoms.push(atom);
     //atomc.addEventListener('collide', atom.collision)
 }
@@ -163,6 +152,19 @@ function MakeLight(objectpozx,objectpozy,objectpozz)
 
 //Continous Animations
 
+function acollision (event){
+    let a = event.bodyA;
+    let b = event.bodyB;
+    //if(a.position.x>b.position.x)return;
+    //if(a.position.y>b.position.y)return;
+    //if(a.position.z>=b.position.z)return;
+    a.ref.remain = false;
+    scene.remove(b.ref.t);
+    b.ref.t = new THREE.Mesh(atom_geom, atom_heli_mat);
+    scene.remove( a.ref.t );
+};
+physicsWorld.addEventListener('beginShapeContact', acollision);
+
 /// THREE
 function animate() {
     controls.update();  
@@ -171,11 +173,11 @@ function animate() {
 }
 
 /// CANNON
-const cannonDebugger = new CannonDebugger(scene, physicsWorld,{} );
+//const cannonDebugger = new CannonDebugger(scene, physicsWorld,{} );
 const animate_physics = ()=>{
     physicsWorld.fixedStep();
     physicsWorld.gravity = physicsWorld.gravity.scale(-1); 
-    cannonDebugger.update();
+    //cannonDebugger.update();
     window.requestAnimationFrame(animate_physics);
 
     ///MAKE ROTATE THEN REALISE TOKAMAK NO ROTATE AND THEN I WANT KMS
@@ -194,11 +196,11 @@ const animate_physics = ()=>{
 
     for(var i=0;i<Atoms.length;i++)
     {
-        if (Atoms[i].remain == false) {
+        /*if (Atoms[i].remain == false) {
             physicsWorld.removeBody(Atoms[i].c);
             Atoms[i] = {remain: false};
             continue;
-        }
+        }*/
         let a=new CANNON.Vec3(0, 0, 0);
         for (let j = 0; j < Atoms[i].center.length; j++)
             a = a.vadd(Atoms[i].center[j].vsub(Atoms[i].c.position));
@@ -206,15 +208,6 @@ const animate_physics = ()=>{
         Atoms[i].c.applyForce(a);
         Atoms[i].t.position.copy(Atoms[i].c.position);
         Atoms[i].t.quaternion.copy(Atoms[i].c.quaternion);
-    }
-    
-    for(var i=0; i<physicsWorld.contacts.length; i++)
-    {
-        for(var j=0; j<physicsWorld.contacts.length; j++)
-        {   
-
-            physicsWorld.contacts[j].remain=false;
-        }   
     }
 
     /*for(var i=0;i<Atom_Arrayc.length;i++)
