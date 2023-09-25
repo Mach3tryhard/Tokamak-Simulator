@@ -35,11 +35,8 @@ const physicsWorld = new CANNON.World({
 
 // Creating objects
 let Atoms = [];
-let Atom_Arrayt=[];
-let Atom_Arrayc=[];
-let Atom_center=[];
 
-const box_geometry = new THREE.BoxGeometry(1,1,1);
+const box_geometry = new THREE.BoxGeometry(0.25,0.25,0.25);
 const box_material = new THREE.MeshNormalMaterial({color:0x0000ff});
 const box = new THREE.Mesh(box_geometry,box_material); scene.add(box);
 const BoxBody = new CANNON.Body({
@@ -126,7 +123,6 @@ function addAtom(){
     atom.paplito = true;
     atom.remain = true;
     Atoms.push(atom);
-    //atomc.addEventListener('collide', atom.collision)
 }
 
 // SETTING UP SOME STUFF
@@ -135,8 +131,8 @@ var controls_gui = new function() {
     this.vibration_scale = 0.1;
 }
 
-camera.position.set( 0, 10 , 20);
-camera.lookAt( 0, 0, 0 );
+camera.position.set( 0, 4 , 20);
+camera.lookAt( 0, 4, 0 );
 
 
 Array(1000).fill().forEach(addAtom);
@@ -184,7 +180,7 @@ const animate_physics = ()=>{
     //cannonDebugger.update();
     window.requestAnimationFrame(animate_physics);
 
-    ///MAKE ROTATE THEN REALISE TOKAMAK NO ROTATE AND THEN I WANT KMS
+    ///Rotation Code
     /*for(var i=0;i<Atom_Arrayt.length;i++)
     {       
         var r= Atom_Arrayc[i].position;
@@ -196,8 +192,6 @@ const animate_physics = ()=>{
         Atom_Arrayt[i].position.copy(Atom_Arrayc[i].position);
         Atom_Arrayt[i].quaternion.copy(Atom_Arrayc[i].quaternion);
     }*/
-
-
     for(var i=0;i<Atoms.length;i++)
     {
         while (Atoms[i].remain == false) {
@@ -212,53 +206,11 @@ const animate_physics = ()=>{
         Atoms[i].t.position.copy(Atoms[i].c.position);
         Atoms[i].t.quaternion.copy(Atoms[i].c.quaternion);
     }
-
-    /*for(var i=0;i<Atom_Arrayc.length;i++)
-    {
-        for(var j=0;j<Atom_Arrayc.length;j++)
-        {
-            if( i!=j)
-            {
-                const t1 = (Atom_Arrayc[i].position.x-Atom_Arrayc[j].position.x)*(Atom_Arrayc[i].position.x-Atom_Arrayc[j].position.x);
-                const t2 = (Atom_Arrayc[i].position.y-Atom_Arrayc[j].position.y)*(Atom_Arrayc[i].position.y-Atom_Arrayc[j].position.y);
-                const t3 = (Atom_Arrayc[i].position.z-Atom_Arrayc[j].position.z)*(Atom_Arrayc[i].position.z-Atom_Arrayc[j].position.z);
-                const dist = Math.sqrt(t1 + t2 + t3);
-                if(dist <=0.1)
-                {
-                    MakeLight(Atom_Arrayc[i].position.x,Atom_Arrayc[i].position.y,Atom_Arrayc[i].position.z);
-                }
-            }
-        }
-    }*/
     box.position.copy(BoxBody.position);
     box.quaternion.copy(BoxBody.quaternion);
 };
 animate_physics();
 
-// Moving Functions
-
-var zspeed = 0.1;
-var xSpeed = 0.1;
-var ySpeed = 0.1;
-document.addEventListener("keydown", onDocumentKeyDown, false);
-function onDocumentKeyDown(event) {
-    var keyCode = event.which;
-    if (keyCode == 81) {
-        Object.position.z +=zspeed;
-    } else if (keyCode == 69) {
-        Object.position.z -= zspeed;
-    } else if (keyCode == 87) {
-        Object.position.y += ySpeed;
-    } else if (keyCode == 83) {
-        Object.position.y -= ySpeed;
-    } else if (keyCode == 65) {
-        Object.position.x -= xSpeed;
-    } else if (keyCode == 68) {
-        Object.position.x += xSpeed;
-    } else if (keyCode == 32) { 
-        Object.position.set(0, 0, 0);
-    }
-};
 animate();
 
 // Resize window functions
@@ -279,54 +231,195 @@ const gui = new GUI();
 var controls1_gui = {
     AddAtoms_2: function(){
         Array(2).fill().forEach(addAtom);
-    }
-}
-var controls2_gui = {
+    },
     AddAtoms_4: function(){
         Array(4).fill().forEach(addAtom);
-    }
-}
-var controls3_gui = {
+    },
     AddAtoms_8: function(){
         Array(8).fill().forEach(addAtom);
-    }
-}
-var controls4_gui = {
+    },
     AddAtoms_16: function(){
         Array(16).fill().forEach(addAtom);
-    }
-}
-var controls5_gui = {
+    },
     AddAtoms_32: function(){
         Array(32).fill().forEach(addAtom);
-    }
-}
-var controls6_gui = {
+    },
     AddAtoms_64: function(){
         Array(64).fill().forEach(addAtom);
-    }
-}
-var controls7_gui = {
+    },
     AddAtoms_86: function(){
         Array(86).fill().forEach(addAtom);
     }
 }
 
-gui.add(controls1_gui, 'AddAtoms_2').name("Add 2 Atoms(1-Deuterium 1-Tritium)");
-gui.add(controls2_gui, 'AddAtoms_4').name("Add 4 Atoms(2-Deuterium 2-Tritium)");
-gui.add(controls3_gui, 'AddAtoms_8').name("Add 8 Atoms(4-Deuterium 4-Tritium)");
-gui.add(controls4_gui, 'AddAtoms_16').name("Add 16 Atoms(8-Deuterium 8-Tritium)");
-gui.add(controls5_gui, 'AddAtoms_32').name("Add 32 Atoms(16-Deuterium 16-Tritium)");
-gui.add(controls6_gui, 'AddAtoms_64').name("Add 64 Atoms(32-Deuterium 32-Tritium)");
-gui.add(controls7_gui, 'AddAtoms_86').name("Add 86 Atoms(43-Deuterium 43-Tritium)");
+var remove1_gui = {
+    Remove_all: function(){
+        var numerouno=0;
+        for(var i=0;i<Atoms.length;i++)
+        {
+            if(Atoms[i].paplito==false)
+            {
+                scene.remove(Atoms[i].t);
+                physicsWorld.removeBody(Atoms[i].c);
+                numerouno++;
+                Atoms.splice(i,1);
+            }
+        }
+    },
+    Remove_2: function(){
+        var numerouno=0;
+        for(var i=0;i<Atoms.length;i++)
+        {
+            if(Atoms[i].paplito==false)
+            {
+                scene.remove(Atoms[i].t);
+                physicsWorld.removeBody(Atoms[i].c);
+                numerouno++;
+                Atoms.splice(i,1);
+            }
+            if(numerouno==2)
+            {
+                break;
+            }
+        }
+    },
+    Remove_4: function(){
+        var numerouno=0;
+        for(var i=0;i<Atoms.length;i++)
+        {
+            if(Atoms[i].paplito==false)
+            {
+                scene.remove(Atoms[i].t);
+                physicsWorld.removeBody(Atoms[i].c);
+                numerouno++;
+                Atoms.splice(i,1);
+            }
+            if(numerouno==4)
+            {
+                break;
+            }
+        }
+    },
+    Remove_8: function(){
+        var numerouno=0;
+        for(var i=0;i<Atoms.length;i++)
+        {
+            if(Atoms[i].paplito==false)
+            {
+                scene.remove(Atoms[i].t);
+                physicsWorld.removeBody(Atoms[i].c);
+                numerouno++;
+                Atoms.splice(i,1);
+            }
+            if(numerouno==8)
+            {
+                break;
+            }
+        }
+    },
+    Remove_16: function(){
+        var numerouno=0;
+        for(var i=0;i<Atoms.length;i++)
+        {
+            if(Atoms[i].paplito==false)
+            {
+                scene.remove(Atoms[i].t);
+                physicsWorld.removeBody(Atoms[i].c);
+                numerouno++;
+                Atoms.splice(i,1);
+            }
+            if(numerouno==16)
+            {
+                break;
+            }
+        }
+    },
+    Remove_32: function(){
+        var numerouno=0;
+        for(var i=0;i<Atoms.length;i++)
+        {
+            if(Atoms[i].paplito==false)
+            {
+                scene.remove(Atoms[i].t);
+                physicsWorld.removeBody(Atoms[i].c);
+                numerouno++;
+                Atoms.splice(i,1);
+            }
+            if(numerouno==32)
+            {
+                break;
+            }
+        }
+    },
+    Remove_64: function(){
+        var numerouno=0;
+        for(var i=0;i<Atoms.length;i++)
+        {
+            if(Atoms[i].paplito==false)
+            {
+                scene.remove(Atoms[i].t);
+                physicsWorld.removeBody(Atoms[i].c);
+                numerouno++;
+                Atoms.splice(i,1);
+            }
+            if(numerouno==64)
+            {
+                break;
+            }
+        }
+    },
+    Remove_86: function(){
+        var numerouno=0;
+        for(var i=0;i<Atoms.length;i++)
+        {
+            if(Atoms[i].paplito==false)
+            {
+                scene.remove(Atoms[i].t);
+                physicsWorld.removeBody(Atoms[i].c);
+                numerouno++;
+                Atoms.splice(i,1);
+            }
+            if(numerouno==86)
+            {
+                break;
+            }
+        }
+    },
+}
 
-gui.add(controls_gui, 'vibration_scale', 0.1 ,100).name("Temperature");
+const FuelControl = gui.addFolder("Fuel Control");
+FuelControl.open();
 
+const AddHydrogen = FuelControl.addFolder("Add Hydrogen");
+AddHydrogen.add(controls1_gui, 'AddAtoms_2').name("Add 2 Atoms(1-Deuterium 1-Tritium)");
+AddHydrogen.add(controls1_gui, 'AddAtoms_4').name("Add 4 Atoms(2-Deuterium 2-Tritium)");
+AddHydrogen.add(controls1_gui, 'AddAtoms_8').name("Add 8 Atoms(4-Deuterium 4-Tritium)");
+AddHydrogen.add(controls1_gui, 'AddAtoms_16').name("Add 16 Atoms(8-Deuterium 8-Tritium)");
+AddHydrogen.add(controls1_gui, 'AddAtoms_32').name("Add 32 Atoms(16-Deuterium 16-Tritium)");
+AddHydrogen.add(controls1_gui, 'AddAtoms_64').name("Add 64 Atoms(32-Deuterium 32-Tritium)");
+AddHydrogen.add(controls1_gui, 'AddAtoms_86').name("Add 86 Atoms(43-Deuterium 43-Tritium)");
+AddHydrogen.open();
+
+const RemoveHelium = FuelControl.addFolder("Remove Helium");
+RemoveHelium.add(remove1_gui, 'Remove_all').name("Remove all Helium atoms");
+RemoveHelium.add(remove1_gui, 'Remove_2').name("Remove 2 Helium atoms");
+RemoveHelium.add(remove1_gui, 'Remove_4').name("Remove 4 Helium atoms");
+RemoveHelium.add(remove1_gui, 'Remove_8').name("Remove 8 Helium atoms");
+RemoveHelium.add(remove1_gui, 'Remove_16').name("Remove 16 Helium atoms");
+RemoveHelium.add(remove1_gui, 'Remove_32').name("Remove 32 Helium atoms");
+RemoveHelium.add(remove1_gui, 'Remove_64').name("Remove 64 Helium atoms");
+RemoveHelium.add(remove1_gui, 'Remove_86').name("Remove 86 Helium atoms");
+RemoveHelium.open();
+
+const FusionFactors = gui.addFolder("Fusion Factors");
+FusionFactors.open();
+FusionFactors.add(controls_gui, 'vibration_scale', 0.1 ,100).name("Temperature");
+
+const Visibility = gui.addFolder("Visibility Control");
+Visibility.open();
 const materialParams = {
     torusMeshColor : torus.material.color.getHex(),
 };
-gui.add(torus.material, 'wireframe');
-gui.addColor(materialParams, 'torusMeshColor')
+Visibility.add(torus.material, 'wireframe');
+Visibility.addColor(materialParams, 'torusMeshColor')
    .onChange((value) => torus.material.color.set(value));
-
-// testing
