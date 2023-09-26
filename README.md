@@ -74,7 +74,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-<img src="images/Screenshot.png" width="120" height="120">
+<img src="images/Screenshot.png" width="1500" height="900">
 
 Tokamak simplified simulator that make the concept easy to visualise. Physics is easier to understand when you simplify and can simulate on pc what happens in the real world.
 
