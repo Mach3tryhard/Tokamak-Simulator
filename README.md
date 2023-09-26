@@ -93,11 +93,8 @@ This section should list any major frameworks/libraries used to bootstrap your p
 * [![Three][Three.js]][Three-url]
 * [![Cannon][Cannon.js]][Cannon-url]
 * [![Cannond][Cannond.js]][Cannond-url]
-* [![datgui][datgui.io]][datgui-url] gui js
-* [![Svelte][Svelte.dev]][Svelte-url] stats js
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+* [![datgui][datgui.io]][datgui-url]
+* [![stats][stats.dev]][stats-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -215,11 +212,5 @@ Project Link: [https://github.com/Mach3tryhard/Tokamak-Simulator](https://github
 [Cannond-url]: https://pmndrs.github.io/cannon-es/
 [datgui.io]: https://img.shields.io/badge/Dat.gui-123123?logoColor=000000&color=123412
 [datgui-url]: https://angular.io/
-[Svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
-[Svelte-url]: https://svelte.dev/
-[Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
-[Laravel-url]: https://laravel.com
-[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
-[Bootstrap-url]: https://getbootstrap.com
-[JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-[JQuery-url]: https://jquery.com 
+[stats.dev]: https://img.shields.io/badge/Stats-123123?logoColor=000000&color=f21f4f
+[stats-url]: https://www.npmjs.com/package/stats-js
