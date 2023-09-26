@@ -91,7 +91,7 @@ Here's why:
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
 * [![Three][Three.js]][Three-url]
-* [![Cannon][[Cannon.js]]][Cannon-url]cannon es
+* [![Cannon][Cannon.js]][Cannon-url]cannon es
 * [![Vue][Vue.js]][Vue-url]cannon es debugger
 * [![Angular][Angular.io]][Angular-url] gui js
 * [![Svelte][Svelte.dev]][Svelte-url] stats js
