@@ -197,7 +197,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Project Link: [https://github.com/Mach3tryhard/Tokamak-Simulator](https://github.com/Mach3tryhard/Tokamak-Simulator)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -207,7 +207,7 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 ### Read me file made using
 * [Choose an Open Source License](https://choosealicense.com)
 * [Img Shields](https://shields.io)
-*[Github Template](https://github.com/othneildrew/Best-README-Template)
+* [Github Template](https://github.com/othneildrew/Best-README-Template)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
