@@ -229,7 +229,7 @@ Project Link: [https://github.com/Mach3tryhard/Tokamak-Simulator](https://github
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/othneildrew
 [product-screenshot]: images/screenshot.png
-[Three.js]: https://img.shields.io/badge/Three.js-000000?logo=threedotjs
+[Three.js]: https://img.shields.io/badge/Three.js-20232A?style=for-the-badge&logo=threedotjs
 [Three-url]: https://threejs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
