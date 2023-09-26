@@ -231,8 +231,8 @@ Project Link: [https://github.com/Mach3tryhard/Tokamak-Simulator](https://github
 [product-screenshot]: images/screenshot.png
 [Three.js]: https://img.shields.io/badge/Three.js-000000?logo=threedotjs
 [Three-url]: https://threejs.org/
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
+[Cannon.js]: https://img.shields.io/badge/Cannon-es%3F000000?logo=c&logoColor=000000
+[Cannon-url]: https://pmndrs.github.io/cannon-es/
 [Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
 [Vue-url]: https://vuejs.org/
 [Angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
