@@ -156,6 +156,7 @@ Controls:
 - [ ] Add better Physics
 - [ ] Add additional controls
 - [ ] Multi-language Support
+    - [x] English
     - [ ] Romanian
     - [ ] French 😫
 
