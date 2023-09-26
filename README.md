@@ -90,7 +90,7 @@ Here's why:
 
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
-* [![Three][Three.js]][Next-url]three js
+* [![Three][Three.js]][Three-url]
 * [![React][React.js]][React-url]cannon es
 * [![Vue][Vue.js]][Vue-url]cannon es debugger
 * [![Angular][Angular.io]][Angular-url] gui js
@@ -237,7 +237,7 @@ Use this space to list resources you find helpful and would like to give credit 
 [linkedin-url]: https://linkedin.com/in/othneildrew
 [product-screenshot]: images/screenshot.png
 [Three.js]: https://img.shields.io/badge/Three.js-000000?logo=threedotjs
-[Next-url]: https://threejs.org/
+[Three-url]: https://threejs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
 [Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
