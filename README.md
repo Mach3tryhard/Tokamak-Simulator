@@ -74,7 +74,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot]](images/screenshot.png)
 
 Tokamak simplified simulator that make the concept easy to visualise. Physics is easier to understand when you simplify and can simulate on pc what happens in the real world.
 
@@ -90,11 +90,11 @@ Here's why:
 
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
+* [![Next][Next.js]][Next-url]three js
+* [![React][React.js]][React-url]cannon es
+* [![Vue][Vue.js]][Vue-url]cannon es debugger
+* [![Angular][Angular.io]][Angular-url] gui js
+* [![Svelte][Svelte.dev]][Svelte-url] stats js
 * [![Laravel][Laravel.com]][Laravel-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 * [![JQuery][JQuery.com]][JQuery-url]
@@ -110,7 +110,7 @@ How to get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+Node installation is required to run this project.
 * npm
   ```sh
   npm install npm@latest -g
@@ -141,9 +141,8 @@ _Below is an example of how you can instruct your audience on installing and set
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
+Can be used to explain how a tokamak reaction works.
+Controls:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -152,13 +151,13 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
+- [x] Add Controls
+- [x] Add Physics
+- [ ] Add better Physics
+- [ ] Add additional controls
 - [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
+    - [ ] Romanian
+    - [ ] French 😫
 
 See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
 
