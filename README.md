@@ -195,7 +195,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+Matei Sirghe - matei.sirghe@gmail.com
 
 Project Link: [https://github.com/Mach3tryhard/Tokamak-Simulator](https://github.com/Mach3tryhard/Tokamak-Simulator)
 
