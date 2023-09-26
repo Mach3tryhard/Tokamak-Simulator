@@ -210,7 +210,7 @@ Project Link: [https://github.com/Mach3tryhard/Tokamak-Simulator](https://github
 [Cannon-url]: https://pmndrs.github.io/cannon-es/
 [Cannond.js]: https://img.shields.io/badge/Cannonesdebugger-000000?logo=c&logoColor=000000&color=ffffff
 [Cannond-url]: https://pmndrs.github.io/cannon-es/
-[datgui.io]: https://img.shields.io/badge/Dat.gui-123123?logoColor=000000&color=123412
+[datgui.io]: https://img.shields.io/badge/Dat.gui.js-123123?logoColor=000000&color=123412
 [datgui-url]: https://angular.io/
-[stats.dev]: https://img.shields.io/badge/Stats-123123?logoColor=000000&color=f21f4f
+[stats.dev]: https://img.shields.io/badge/Stats.js-123123?logoColor=000000&color=f21f4f
 [stats-url]: https://www.npmjs.com/package/stats-js
