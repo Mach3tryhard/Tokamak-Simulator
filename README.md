@@ -93,7 +93,7 @@ This section should list any major frameworks/libraries used to bootstrap your p
 * [![Three][Three.js]][Three-url]
 * [![Cannon][Cannon.js]][Cannon-url]
 * [![Cannond][Cannond.js]][Cannond-url]
-* [![Angular][Angular.io]][Angular-url] gui js
+* [![datgui][datgui.io]][datgui-url] gui js
 * [![Svelte][Svelte.dev]][Svelte-url] stats js
 * [![Laravel][Laravel.com]][Laravel-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
