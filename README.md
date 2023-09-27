@@ -10,9 +10,7 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 [![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url] 
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
@@ -192,12 +190,8 @@ Project Link: [https://github.com/Mach3tryhard/Tokamak-Simulator](https://github
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github.com/Mach3tryhard/Tokamak-Simulator.svg?style=for-the-badge
 [contributors-url]: https://github.com/Mach3tryhard/Tokamak-Simulator/graphs/contributors
-[forks-shield]: https://img.shields.io/github.com/Mach3tryhard/Tokamak-Simulator.svg?style=for-the-badge
-[forks-url]: https://github.com/Mach3tryhard/Tokamak-Simulator/network/members
 [stars-shield]: https://img.shields.io/github.com/Mach3tryhard/Tokamak-Simulator.svg?style=for-the-badge
 [stars-url]: https://github.com/Mach3tryhard/Tokamak-Simulator/stargazers
-[issues-shield]: https://img.shields.io/github.com/Mach3tryhard/Tokamak-Simulator.svg?style=for-the-badge
-[issues-url]: https://github.com/Mach3tryhard/Tokamak-Simulator/issues
 [license-shield]: https://img.shields.io/badge/Apache-License-FFA500
 [license-url]: https://github.com/Mach3tryhard/Tokamak-Simulator/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/Linkedin-ffffff?logo=linkedin&logoColor=ffffff&labelColor=%230A66C2
