@@ -74,7 +74,7 @@
 <img src="images/Screenshot.png" width="700" height="350">
 <img src="images/Helium.png" width="420" height="169">
 <img src="images/deuterium.png" width="420" height="169">
-<img src="images/tritium.png" width="420" height="169">
+<img src="images/Tritium.png" width="420" height="169">
 
 Tokamak simplified simulator that make the concept easy to visualise. Physics is easier to understand when you simplify and can simulate on pc what happens in the real world.
 
