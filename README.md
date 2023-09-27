@@ -72,6 +72,9 @@
 ## About The Project
 
 <img src="images/Screenshot.png" width="700" height="350">
+<img src="images/Screenshot.png" width="700" height="350">
+<img src="images/Screenshot.png" width="700" height="350">
+<img src="images/Screenshot.png" width="700" height="350">
 
 Tokamak simplified simulator that make the concept easy to visualise. Physics is easier to understand when you simplify and can simulate on pc what happens in the real world.
 
@@ -112,21 +115,22 @@ Node installation is required to run this project.
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
-
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/Mach3tryhard/Tokamak-Simulator.git
    ```
-3. Install NPM packages
+2. Install NPM packages
    ```sh
-   npm install
+   npm install --save three
+   npm install --save-dev vite
+   npm install cannon-es
+   npm install cannon-es-debugger
+   npm install --save dat.gui
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
+3. Run using
+  ```sh
+  npx vite
+  ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
