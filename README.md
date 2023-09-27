@@ -72,9 +72,9 @@
 ## About The Project
 
 <img src="images/Screenshot.png" width="700" height="350">
-<img src="images/Screenshot.png" width="700" height="350">
-<img src="images/Screenshot.png" width="700" height="350">
-<img src="images/Screenshot.png" width="700" height="350">
+<img src="images/Helium.png" width="420" height="169">
+<img src="images/deuterium.png" width="420" height="169">
+<img src="images/tritium.png" width="420" height="169">
 
 Tokamak simplified simulator that make the concept easy to visualise. Physics is easier to understand when you simplify and can simulate on pc what happens in the real world.
 
@@ -127,9 +127,10 @@ Node installation is required to run this project.
    npm install cannon-es-debugger
    npm install --save dat.gui
    ```
-3. Run using
+### Running
+3. Use vite
   ```sh
-  npx vite
+   npx vite
   ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
