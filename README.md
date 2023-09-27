@@ -130,18 +130,6 @@ _Below is an example of how you can instruct your audience on installing and set
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
-<!-- USAGE EXAMPLES -->
-## Explanation
-
-Can be used to explain how a tokamak reaction works.
-Controls:
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
 <!-- ROADMAP -->
 ## Roadmap
 
@@ -188,9 +176,9 @@ Project Link: [https://github.com/Mach3tryhard/Tokamak-Simulator](https://github
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github.com/Mach3tryhard/Tokamak-Simulator.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/badge/1-Contributor-blue?logoColor=ffffff
 [contributors-url]: https://github.com/Mach3tryhard/Tokamak-Simulator/graphs/contributors
-[stars-shield]: https://img.shields.io/github.com/Mach3tryhard/Tokamak-Simulator.svg?style=for-the-badge
+[stars-shield]:  https://img.shields.io/badge/1-Stars-yellow?logoColor=ffffff
 [stars-url]: https://github.com/Mach3tryhard/Tokamak-Simulator/stargazers
 [license-shield]: https://img.shields.io/badge/Apache-License-FFA500
 [license-url]: https://github.com/Mach3tryhard/Tokamak-Simulator/LICENSE.txt
