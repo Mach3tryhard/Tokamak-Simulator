@@ -1,8 +1,8 @@
-import * as THREE from 'three';	
-import * as CANNON from 'cannon-es';
-import CannonDebugger from 'cannon-es-debugger';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import {GUI} from 'dat.gui';
+import * as CANNON from 'https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/dist/cannon-es.js';
+import CannonDebugger from 'https://cdn.jsdelivr.net/npm/cannon-es-debugger@0.1.3/dist/cannon-es-debugger.js';
+import GUI from 'https://cdn.jsdelivr.net/npm/lil-gui@0.20/+esm';
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.171.0/build/three.module.js';
+import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.171.0/examples/jsm/controls/OrbitControls.js';
 
 /// Scene preparation
 
