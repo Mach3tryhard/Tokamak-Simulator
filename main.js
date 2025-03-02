@@ -1,14 +1,9 @@
-import * as CANNON from 'https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/dist/cannon-es.js';
-import CannonDebugger from 'https://cdn.jsdelivr.net/npm/cannon-es-debugger@0.1.3/dist/cannon-es-debugger.js';
-import GUI from 'https://cdn.jsdelivr.net/npm/lil-gui@0.20/+esm';
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.171.0/build/three.module.js';
-import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.171.0/examples/jsm/controls/OrbitControls.js';
-
+javascript:(function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='./build/stats.js';document.head.appendChild(script);})()
+import GUI from './build/lilgui.js';
+import * as THREE from './build/three.module.js';
+import { OrbitControls } from './build/OrbitControls.js';
+import * as CANNON from './build/cannon-es.js';
 /// Scene preparation
-
-///STATS 
-(function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='https://mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
-
 /// THREE
 const scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
